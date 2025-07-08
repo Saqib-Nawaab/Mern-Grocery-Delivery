@@ -5,6 +5,9 @@
 # MERN Grocery Delivery
 A full-stack grocery delivery web application built with the MERN stack (MongoDB, Express.js, React, Node.js) and Vite for the frontend. This project allows users to browse products, manage their cart, place orders, and sellers to manage their products and orders.
 
+![structre](https://res.cloudinary.com/djfem14lf/image/upload/v1751993670/Screenshot_2025-07-08_095259_tpjage.png)
+
+
 ---
 
 ## Features
