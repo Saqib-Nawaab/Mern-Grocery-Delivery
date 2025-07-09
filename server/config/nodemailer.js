@@ -6,10 +6,10 @@ const sendEmail = async (options) => {
     port: 465,
     secure: true, 
     auth: {
-      user:"nawabcoder1051@gmail.com",
-      pass:"hqhf fttg nlkp xulq",
-      // user: "aqibnawab1100@gmail.com",
-      // pass: "dbnv ywqg vkni hlps", 
+      user:"",
+      pass:"",
+      // user: "",
+      // pass: "", 
     },
     tls: {
       rejectUnauthorized: false, 
