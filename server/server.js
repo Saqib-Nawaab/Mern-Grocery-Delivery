@@ -19,7 +19,7 @@ const port = process.env.PORT || 4000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors({ credentials: true }));
+app.use(cors({ credentials: true , origin:["https://mern-grocery-delivery-client.vercel.app"]}));
 
 connectDb();
 connectCloudinary();
