@@ -6,8 +6,8 @@ const sendEmail = async (options) => {
     port: 465,
     secure: true, 
     auth: {
-      user:"",
-      pass:"",
+      user:process.env.USER_EMAIL,
+      pass:process.env.USER_PASS,
       // user: "",
       // pass: "", 
     },
