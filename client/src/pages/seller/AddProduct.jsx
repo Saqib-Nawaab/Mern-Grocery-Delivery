@@ -23,7 +23,7 @@ const AddProduct = () => {
     }
 
     setIsSubmitting(true);
-    const toastId = toast.loading("Proceeding, please wait...");
+    const toastId = toast.loading("Uploading product...");
 
     try {
       const productData = {
@@ -36,11 +36,18 @@ const AddProduct = () => {
 
       const formData = new FormData();
       formData.append("productData", JSON.stringify(productData));
-      for (let i = 0; i < files.length; i++) {
-        formData.append("images", files[i]);
-      }
 
-      const { data } = await axios.post("/api/product/add", formData);
+      // Append each file to the formData individually
+      files.forEach((file) => {
+        formData.append("images", file);
+      });
+
+      const { data } = await axios.post("/api/product/add", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
       if (data.success) {
         setName("");
         setDescription("");
@@ -58,7 +65,9 @@ const AddProduct = () => {
         setIsSubmitting(false);
       }
     } catch (error) {
-      toast.error(error.message, { id: toastId });
+      toast.error(error.response?.data?.message || error.message, {
+        id: toastId,
+      });
       setIsSubmitting(false);
     }
   };
@@ -103,6 +112,8 @@ const AddProduct = () => {
               ))}
           </div>
         </div>
+
+        {/* Product Name */}
         <div className="flex flex-col gap-1 max-w-md">
           <label className="text-base font-medium" htmlFor="product-name">
             Product Name
@@ -118,6 +129,8 @@ const AddProduct = () => {
             disabled={isSubmitting}
           />
         </div>
+
+        {/* Product Description */}
         <div className="flex flex-col gap-1 max-w-md">
           <label
             className="text-base font-medium"
@@ -135,6 +148,8 @@ const AddProduct = () => {
             disabled={isSubmitting}
           ></textarea>
         </div>
+
+        {/* Category */}
         <div className="w-full flex flex-col gap-1">
           <label className="text-base font-medium" htmlFor="category">
             Category
@@ -154,6 +169,8 @@ const AddProduct = () => {
             ))}
           </select>
         </div>
+
+        {/* Price & Offer Price */}
         <div className="flex items-center gap-5 flex-wrap">
           <div className="flex-1 flex flex-col gap-1 w-32">
             <label className="text-base font-medium" htmlFor="product-price">
@@ -186,6 +203,7 @@ const AddProduct = () => {
             />
           </div>
         </div>
+
         <button
           className="px-8 py-2.5 bg-primary cursor-pointer hover:bg-primary-dull text-white font-medium rounded disabled:opacity-50"
           disabled={isSubmitting}
